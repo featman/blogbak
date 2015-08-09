@@ -10,7 +10,7 @@ tags: [ssh反向代理,ssh,穿越内网]
 <!--more-->
 ## 1.原理图
 
-![image description](http://img-storage.qiniudn.com/15-8-9/87726795.jpg)
+![image description](http://7xkz95.com1.z0.glb.clouddn.com/15-8-9/58003707.jpg)
 
 ## 2.使用方法
 ##### 2.1 在A下

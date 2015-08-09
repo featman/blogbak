@@ -11,8 +11,8 @@
 <meta property="og:url" content="http://nfeat.com/2014/10/16/sshreverse/index.html">
 <meta property="og:site_name" content="宋志诚的博客">
 <meta property="og:description" content="为了解决无法突破对远端设备所在内网访问的限制，ssh提供了一套反向代理机制来解决问题。">
-<meta property="og:image" content="http://img-storage.qiniudn.com/15-8-9/87726795.jpg">
-<meta property="og:updated_time" content="2015-08-09T06:51:32.000Z">
+<meta property="og:image" content="http://7xkz95.com1.z0.glb.clouddn.com/15-8-9/58003707.jpg">
+<meta property="og:updated_time" content="2015-08-09T11:35:09.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ssh 反向代理">
 <meta name="twitter:description" content="为了解决无法突破对远端设备所在内网访问的限制，ssh提供了一套反向代理机制来解决问题。">
@@ -32,7 +32,7 @@
 	<header id="header" class="inner">
 		<a href="/" class="profilepic">
 			
-			<img lazy-src="http://img-storage.qiniudn.com/15-8-9/19877572.jpg" class="js-avatar">
+			<img lazy-src="http://7xkz95.com1.z0.glb.clouddn.com/15-8-9/75980830.jpg" class="js-avatar">
 			
 		</a>
 
@@ -139,7 +139,7 @@
 	<div class="intrude-less">
 		<header id="header" class="inner">
 			<div class="profilepic">
-				<img lazy-src="http://img-storage.qiniudn.com/15-8-9/19877572.jpg" class="js-avatar">
+				<img lazy-src="http://7xkz95.com1.z0.glb.clouddn.com/15-8-9/75980830.jpg" class="js-avatar">
 			</div>
 			<hgroup>
 			  <h1 class="header-author">宋志诚</h1>
@@ -218,7 +218,7 @@
       
         <p>为了解决无法突破对远端设备所在内网访问的限制，ssh提供了一套反向代理机制来解决问题。</p>
 <a id="more"></a>
-<h2 id="1-原理图">1.原理图</h2><p><img src="http://img-storage.qiniudn.com/15-8-9/87726795.jpg" alt="image description"></p>
+<h2 id="1-原理图">1.原理图</h2><p><img src="http://7xkz95.com1.z0.glb.clouddn.com/15-8-9/58003707.jpg" alt="image description"></p>
 <h2 id="2-使用方法">2.使用方法</h2><h5 id="2-1_在A下">2.1 在A下</h5><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh -NfR <span class="number">2222</span>:localhost:<span class="number">22</span> httpd@<span class="number">100.100</span><span class="number">.100</span><span class="number">.100</span> -p <span class="number">22</span></span><br></pre></td></tr></table></figure>
 <p>（连接对方22的端口，并把B主机的2222端口 与 本地A主机的22端口映射，即建立通信线路。用httpd这个用户名登陆B主机，B主机ip为100.100.100.100）</p>
 <h5 id="2-2_在B下">2.2 在B下</h5><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">ssh</span> -p <span class="number">2222</span> exe<span class="variable">@localhost</span></span><br></pre></td></tr></table></figure>
