@@ -5,7 +5,6 @@ tags: [DNS，第三方DNS]
 description: 提供可替换的DNS
 ---
 ## NDS替换
----
 ### 国内DNS
 1.aliDNS：223.5.5.5；223.6.6.6**（推荐）**
 <!--more-->
