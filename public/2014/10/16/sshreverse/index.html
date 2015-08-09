@@ -12,7 +12,7 @@
 <meta property="og:site_name" content="宋志诚的博客">
 <meta property="og:description" content="为了解决无法突破对远端设备所在内网访问的限制，ssh提供了一套反向代理机制来解决问题。">
 <meta property="og:image" content="http://img-storage.qiniudn.com/15-8-9/87726795.jpg">
-<meta property="og:updated_time" content="2015-08-09T06:48:06.000Z">
+<meta property="og:updated_time" content="2015-08-09T06:49:03.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ssh 反向代理">
 <meta name="twitter:description" content="为了解决无法突破对远端设备所在内网访问的限制，ssh提供了一套反向代理机制来解决问题。">
@@ -225,12 +225,15 @@
 <p>（B主机通过ssh客户端连接自己本地的2222端口，并用exe登陆远程A主机）</p>
 <p>（也可以不用输入exe@，直接输入ssh -p 2222 localhost即可）</p>
 <p><strong>这里需要说明的是，为了使B区分不同的远程主机，即可用端口号加以区分。</strong></p>
-<h5 id="2-3_为了解决内网A主机_第一次主动连接B主机时，需要输入密码的问题，还有ssh生命周期时间太短的问题。我们可以采用ssh-keygen和autossh解决。">2.3 为了解决内网A主机 第一次主动连接B主机时，需要输入密码的问题，还有ssh生命周期时间太短的问题。我们可以采用ssh-keygen和autossh解决。</h5><p>a.在A主机上键入：ssh-keygen ，依次点下去，会在~目录下的.ssh/中生成一个ida_rsa.pub的文件，把这个文件通过scp拷贝到远程主机B上</p>
-<p>b.在B主机上键入：cat ida_rsa.pub &gt;&gt; ~/.ssh/authorized_keys</p>
+<h5 id="2-3_为了解决内网A主机_第一次主动连接B主机时，需要输入密码的问题，还有ssh生命周期时间太短的问题。我们可以采用ssh-keygen和autossh解决。">2.3 为了解决内网A主机 第一次主动连接B主机时，需要输入密码的问题，还有ssh生命周期时间太短的问题。我们可以采用ssh-keygen和autossh解决。</h5><p>a.在A主机上键入：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen</span><br></pre></td></tr></table></figure></p>
+<p> ，依次点下去，会在~目录下的.ssh/中生成一个ida_rsa.pub的文件，把这个文件通过scp拷贝到远程主机B上</p>
+<p>b.在B主机上键入：<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat ida_rsa.pub <span class="prompt">&gt;&gt; </span>~<span class="regexp">/.ssh/authorized</span>_keys</span><br></pre></td></tr></table></figure></p>
 <p>此时，A主机已经免输密码。</p>
 <p>c.接着我们在A主机下安装一个autossh （ubuntu可采用apt-get install autossh安装，嵌入式设备可能需要移植）</p>
-<p><del>d.在A主机上键入 autossh -M 5678 -NR 2222:localhost:22 root@100.100.100.100 -p 22  &amp;<br>此时，A主机与B主机的SSH通道一直会保持在线了。</del></p>
-<h5 id="2-4_经测试发现，这条命令并不适用于3G网卡传输的方式，因为3G的无线传输方式本身就有传输可能会断掉的缺点。如果A主机端为一个3G网络的环境，那么需要在A主机上使用以下方法解决。">2.4 经测试发现，这条命令并不适用于3G网卡传输的方式，因为3G的无线传输方式本身就有传输可能会断掉的缺点。如果A主机端为一个3G网络的环境，那么需要在A主机上使用以下方法解决。</h5><p>d1.    autossh -M 0 -q -N -o ServerAliveInterval=10 -o ServerAliveCountMax=3 -R 44444:localhost:22 root@100.100.100.100这条命令的作用比上一条多了一个心跳信息，就是说A主机的ssh每隔10秒会主动给B主机的sshd发送心跳信息，这时候B主机sshd会给予A主机ssh一个响应信息，这是一个过程，如果B主机没有给予ssh一个响应信息，那么ServerAliveCountMax值+1，当ServerAliveCountMax等于3时，ssh客户端认为已经断掉，这时候ssh会自己关闭相关端口和进程，然后由autossh自动启动ssh客户端，再一次连接，也就是说完成一次检测网络状态，需要30秒，如果30秒，由于网络阻塞或者其他问题，那么ssh会主动关闭。</p>
+<p>~~d.在A主机上键入<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">autossh -M <span class="number">5678</span> -NR <span class="number">2222</span>:localhost:<span class="number">22</span> root@<span class="number">100.100</span><span class="number">.100</span><span class="number">.100</span> -p <span class="number">22</span>  &amp;</span><br></pre></td></tr></table></figure></p>
+<p>此时，A主机与B主机的SSH通道一直会保持在线了。~~</p>
+<h5 id="2-4_经测试发现，这条命令并不适用于3G网卡传输的方式，因为3G的无线传输方式本身就有传输可能会断掉的缺点。如果A主机端为一个3G网络的环境，那么需要在A主机上使用以下方法解决。">2.4 经测试发现，这条命令并不适用于3G网卡传输的方式，因为3G的无线传输方式本身就有传输可能会断掉的缺点。如果A主机端为一个3G网络的环境，那么需要在A主机上使用以下方法解决。</h5><p>d1.<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">autossh -M <span class="number">0</span> -q -N -o ServerAliveInterval=<span class="number">10</span> -o ServerAliveCountMax=<span class="number">3</span> -R <span class="number">44444</span>:localhost:<span class="number">22</span> root@<span class="number">100.100</span><span class="number">.100</span><span class="number">.100</span></span><br></pre></td></tr></table></figure></p>
+<p>这条命令的作用比上一条多了一个心跳信息，就是说A主机的ssh每隔10秒会主动给B主机的sshd发送心跳信息，这时候B主机sshd会给予A主机ssh一个响应信息，这是一个过程，如果B主机没有给予ssh一个响应信息，那么ServerAliveCountMax值+1，当ServerAliveCountMax等于3时，ssh客户端认为已经断掉，这时候ssh会自己关闭相关端口和进程，然后由autossh自动启动ssh客户端，再一次连接，也就是说完成一次检测网络状态，需要30秒，如果30秒，由于网络阻塞或者其他问题，那么ssh会主动关闭。</p>
 <p>d2.   另外，由于是3G网络环境（测试发现，如果3G网络异常断开，那么autossh进程会死掉），所以需要加入一小段监控的shell脚本，定期检测autossh是否存在，如果不存在则重启，如果存在阻塞几秒继续监控。</p>
 <p>d3.   上边配置了A主机，还需要配置B主机（服务器），首先要说的是，当用d1的那条命令后，会使得服务器端ssh连接异常，也就是说putty可能登陆不上去，重启也无效（这个可能是特例，总之咱不知道具体原因），查了一些资料，说是要更改ssh客户端的配置即可（这里不明白），具体做法是/etc/ssh/ssh_config这个文件中，加入ServerAliveInterval 60即可，据说是防被踢，但是不理解。。。。。</p>
 <p>d4. 另外我们使用netstat -antp命令可以看到linux当前网络的端口占用情况。测试的时候我发现A主机的3G网络异常断开之后，A主机的autossh自然死掉了。但是在B主机netstat -antp时，还是可以看到系统在监听44444端口，后边的进程是sshd 服务端程序启动的，如果我们在B主机上不做任何设置，那么会导致B主机44444端口一直处于无效状态，即便A主机设置重新启动autossh，也无法再B主机通过44444与A主机建立连接。解决方法是打开/etc/ssh/sshd_config配置文件，在最后边添加或者更改ClientAliveIntercal 10 还有 ClientAliveCountMax 3即可，意思就是说sshd服务端程序主动去发送小心给客户端（A主机），A主机如果与B保持连接，那么肯定会给予B回复，否则不回，这样就是使得10秒之后，count值+1，直到3，sshd程序就会主动把占用端口的sshd子进程杀掉，让出端口来。这时候就等待A主机建立连接就可以了！</p>

@@ -33,20 +33,36 @@ ssh -p 2222 exe@localhost
 
 ##### 2.3 为了解决内网A主机 第一次主动连接B主机时，需要输入密码的问题，还有ssh生命周期时间太短的问题。我们可以采用ssh-keygen和autossh解决。
 
-a.在A主机上键入：ssh-keygen ，依次点下去，会在~目录下的.ssh/中生成一个ida_rsa.pub的文件，把这个文件通过scp拷贝到远程主机B上
+a.在A主机上键入：
+```
+ssh-keygen
+```
+ ，依次点下去，会在~目录下的.ssh/中生成一个ida_rsa.pub的文件，把这个文件通过scp拷贝到远程主机B上
 
-b.在B主机上键入：cat ida_rsa.pub >> ~/.ssh/authorized_keys
+b.在B主机上键入：
+```
+cat ida_rsa.pub >> ~/.ssh/authorized_keys
+```
+
 
 此时，A主机已经免输密码。
 
 c.接着我们在A主机下安装一个autossh （ubuntu可采用apt-get install autossh安装，嵌入式设备可能需要移植）
 
-~~d.在A主机上键入 autossh -M 5678 -NR 2222:localhost:22 root@100.100.100.100 -p 22  & 
+~~d.在A主机上键入 
+```
+autossh -M 5678 -NR 2222:localhost:22 root@100.100.100.100 -p 22  & 
+```
+
 此时，A主机与B主机的SSH通道一直会保持在线了。~~
 
 
 ##### 2.4 经测试发现，这条命令并不适用于3G网卡传输的方式，因为3G的无线传输方式本身就有传输可能会断掉的缺点。如果A主机端为一个3G网络的环境，那么需要在A主机上使用以下方法解决。
-d1.    autossh -M 0 -q -N -o ServerAliveInterval=10 -o ServerAliveCountMax=3 -R 44444:localhost:22 root@100.100.100.100这条命令的作用比上一条多了一个心跳信息，就是说A主机的ssh每隔10秒会主动给B主机的sshd发送心跳信息，这时候B主机sshd会给予A主机ssh一个响应信息，这是一个过程，如果B主机没有给予ssh一个响应信息，那么ServerAliveCountMax值+1，当ServerAliveCountMax等于3时，ssh客户端认为已经断掉，这时候ssh会自己关闭相关端口和进程，然后由autossh自动启动ssh客户端，再一次连接，也就是说完成一次检测网络状态，需要30秒，如果30秒，由于网络阻塞或者其他问题，那么ssh会主动关闭。
+d1.    
+```
+autossh -M 0 -q -N -o ServerAliveInterval=10 -o ServerAliveCountMax=3 -R 44444:localhost:22 root@100.100.100.100
+```
+这条命令的作用比上一条多了一个心跳信息，就是说A主机的ssh每隔10秒会主动给B主机的sshd发送心跳信息，这时候B主机sshd会给予A主机ssh一个响应信息，这是一个过程，如果B主机没有给予ssh一个响应信息，那么ServerAliveCountMax值+1，当ServerAliveCountMax等于3时，ssh客户端认为已经断掉，这时候ssh会自己关闭相关端口和进程，然后由autossh自动启动ssh客户端，再一次连接，也就是说完成一次检测网络状态，需要30秒，如果30秒，由于网络阻塞或者其他问题，那么ssh会主动关闭。
 
 d2.   另外，由于是3G网络环境（测试发现，如果3G网络异常断开，那么autossh进程会死掉），所以需要加入一小段监控的shell脚本，定期检测autossh是否存在，如果不存在则重启，如果存在阻塞几秒继续监控。
 
