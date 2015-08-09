@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>ssh 反向代理 | 宋志诚的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="为了解决无法突破对远端设备所在内网访问的限制，ssh提供了一套反向代理机制来解决问题。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ssh 反向代理">
+<meta property="og:url" content="http://nfeat.com/2014/10/16/sshreverse/index.html">
+<meta property="og:site_name" content="宋志诚的博客">
+<meta property="og:description" content="为了解决无法突破对远端设备所在内网访问的限制，ssh提供了一套反向代理机制来解决问题。">
+<meta property="og:image" content="http://img-storage.qiniudn.com/15-8-9/87726795.jpg">
+<meta property="og:updated_time" content="2015-08-09T06:44:17.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ssh 反向代理">
+<meta name="twitter:description" content="为了解决无法突破对远端设备所在内网访问的限制，ssh提供了一套反向代理机制来解决问题。">
+  
+    <link rel="alternative" href="/atom.xml" title="宋志诚的博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="http://img-storage.qiniudn.com/15-8-9/19877572.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">宋志诚</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">爱折腾，瞎捣鼓，也是一个伪极客</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+							<li><a href="/tags/随笔">随笔</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/featman" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/nfeat" title="weibo">weibo</a>
+					        
+								<a class="mail" target="_blank" href="mailto:songzhicheng2007@gmail.com" title="mail">mail</a>
+					        
+								<a class="twitter" target="_blank" href="https://twitter.com/lorne0506" title="twitter">twitter</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/DNS，第三方DNS/" style="font-size: 10px;">DNS，第三方DNS</a> <a href="/tags/busybox/" style="font-size: 20px;">busybox</a> <a href="/tags/excel/" style="font-size: 10px;">excel</a> <a href="/tags/hadoop/" style="font-size: 10px;">hadoop</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/n2n/" style="font-size: 10px;">n2n</a> <a href="/tags/phpmyadmin/" style="font-size: 10px;">phpmyadmin</a> <a href="/tags/vpn/" style="font-size: 10px;">vpn</a> <a href="/tags/内存管理/" style="font-size: 10px;">内存管理</a> <a href="/tags/分页技术/" style="font-size: 10px;">分页技术</a> <a href="/tags/文件系统/" style="font-size: 20px;">文件系统</a> <a href="/tags/移植/" style="font-size: 20px;">移植</a>
+					</div>
+				</section>
+				
+				
+				
+
+				
+				
+				<section class="switch-part switch-part3">
+				
+					<div id="js-aboutme">Geeker, New Hardware, OS, C/C++, Cloud Computing, BigData, and like thinking too.</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">宋志诚</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img lazy-src="http://img-storage.qiniudn.com/15-8-9/19877572.jpg" class="js-avatar">
+			</div>
+			<hgroup>
+			  <h1 class="header-author">宋志诚</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">爱折腾，瞎捣鼓，也是一个伪极客</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+					<li><a href="/tags/随笔">随笔</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/featman" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/nfeat" title="weibo">weibo</a>
+			        
+						<a class="mail" target="_blank" href="mailto:songzhicheng2007@gmail.com" title="mail">mail</a>
+			        
+						<a class="twitter" target="_blank" href="https://twitter.com/lorne0506" title="twitter">twitter</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+      <div class="body-wrap"><article id="post-sshreverse" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2014/10/16/sshreverse/" class="article-date">
+  	<time datetime="2014-10-16T18:01:01.000Z" itemprop="datePublished">2014-10-16</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      ssh 反向代理
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/busybox/">busybox</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/文件系统/">文件系统</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/移植/">移植</a></li></ul>
+	</div>
+
+        
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/嵌入式linux/">嵌入式linux</a>
+	</div>
+
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>为了解决无法突破对远端设备所在内网访问的限制，ssh提供了一套反向代理机制来解决问题。</p>
+<a id="more"></a>
+<h2 id="1-原理图">1.原理图</h2><p><img src="http://img-storage.qiniudn.com/15-8-9/87726795.jpg" alt="image description"></p>
+<h2 id="2-使用方法">2.使用方法</h2><h5 id="2-1_在A下">2.1 在A下</h5><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh -NfR <span class="number">2222</span>:localhost:<span class="number">22</span> httpd@<span class="number">100.100</span><span class="number">.100</span><span class="number">.100</span> -p <span class="number">22</span></span><br></pre></td></tr></table></figure>
+<p>（连接对方22的端口，并把B主机的2222端口 与 本地A主机的22端口映射，即建立通信线路。用httpd这个用户名登陆B主机，B主机ip为100.100.100.100）</p>
+<h5 id="2-2_在B下">2.2 在B下</h5><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">ssh</span> -p <span class="number">2222</span> exe<span class="variable">@localhost</span></span><br></pre></td></tr></table></figure>
+<p>（B主机通过ssh客户端连接自己本地的2222端口，并用exe登陆远程A主机）</p>
+<p>（也可以不用输入exe@，直接输入ssh -p 2222 localhost即可）</p>
+<p><strong>这里需要说明的是，为了使B区分不同的远程主机，即可用端口号加以区分。</strong></p>
+<h5 id="2-3_为了解决内网A主机_第一次主动连接B主机时，需要输入密码的问题，还有ssh生命周期时间太短的问题。我们可以采用ssh-keygen和autossh解决。">2.3 为了解决内网A主机 第一次主动连接B主机时，需要输入密码的问题，还有ssh生命周期时间太短的问题。我们可以采用ssh-keygen和autossh解决。</h5><p>a.在A主机上键入：ssh-keygen ，依次点下去，会在~目录下的.ssh/中生成一个ida_rsa.pub的文件，把这个文件通过scp拷贝到远程主机B上</p>
+<p>b.在B主机上键入：cat ida_rsa.pub &gt;&gt; ~/.ssh/authorized_keys</p>
+<p>此时，A主机已经免输密码。</p>
+<p>c.接着我们在A主机下安装一个autossh （ubuntu可采用apt-get install autossh安装，嵌入式设备可能需要移植）</p>
+<p>~~d.在A主机上键入 autossh -M 5678 -NR 2222:localhost:22 root@100.100.100.100 -p 22  &amp; </p>
+<p>此时，A主机与B主机的SSH通道一直会保持在线了。~~</p>
+<h5 id="2-4_经测试发现，这条命令并不适用于3G网卡传输的方式，因为3G的无线传输方式本身就有传输可能会断掉的缺点。如果A主机端为一个3G网络的环境，那么需要在A主机上使用以下方法解决。">2.4 经测试发现，这条命令并不适用于3G网卡传输的方式，因为3G的无线传输方式本身就有传输可能会断掉的缺点。如果A主机端为一个3G网络的环境，那么需要在A主机上使用以下方法解决。</h5><p>d1.    autossh -M 0 -q -N -o ServerAliveInterval=10 -o ServerAliveCountMax=3 -R 44444:localhost:22 root@100.100.100.100这条命令的作用比上一条多了一个心跳信息，就是说A主机的ssh每隔10秒会主动给B主机的sshd发送心跳信息，这时候B主机sshd会给予A主机ssh一个响应信息，这是一个过程，如果B主机没有给予ssh一个响应信息，那么ServerAliveCountMax值+1，当ServerAliveCountMax等于3时，ssh客户端认为已经断掉，这时候ssh会自己关闭相关端口和进程，然后由autossh自动启动ssh客户端，再一次连接，也就是说完成一次检测网络状态，需要30秒，如果30秒，由于网络阻塞或者其他问题，那么ssh会主动关闭。</p>
+<p>d2.   另外，由于是3G网络环境（测试发现，如果3G网络异常断开，那么autossh进程会死掉），所以需要加入一小段监控的shell脚本，定期检测autossh是否存在，如果不存在则重启，如果存在阻塞几秒继续监控。</p>
+<p>d3.   上边配置了A主机，还需要配置B主机（服务器），首先要说的是，当用d1的那条命令后，会使得服务器端ssh连接异常，也就是说putty可能登陆不上去，重启也无效（这个可能是特例，总之咱不知道具体原因），查了一些资料，说是要更改ssh客户端的配置即可（这里不明白），具体做法是/etc/ssh/ssh_config这个文件中，加入ServerAliveInterval 60即可，据说是防被踢，但是不理解。。。。。</p>
+<p>d4. 另外我们使用netstat -antp命令可以看到linux当前网络的端口占用情况。测试的时候我发现A主机的3G网络异常断开之后，A主机的autossh自然死掉了。但是在B主机netstat -antp时，还是可以看到系统在监听44444端口，后边的进程是sshd 服务端程序启动的，如果我们在B主机上不做任何设置，那么会导致B主机44444端口一直处于无效状态，即便A主机设置重新启动autossh，也无法再B主机通过44444与A主机建立连接。解决方法是打开/etc/ssh/sshd_config配置文件，在最后边添加或者更改ClientAliveIntercal 10 还有 ClientAliveCountMax 3即可，意思就是说sshd服务端程序主动去发送小心给客户端（A主机），A主机如果与B保持连接，那么肯定会给予B回复，否则不回，这样就是使得10秒之后，count值+1，直到3，sshd程序就会主动把占用端口的sshd子进程杀掉，让出端口来。这时候就等待A主机建立连接就可以了！</p>
+<p>副：测试发现，也有小概率出现，在A主机端发现autossh进程在，ssh进程也在，但是在B主机端用netstat -antp发现没有在监听44444端口。这时，需要在B主机端主动杀掉netstat -antp结果中那个本地22的端口后边对应的sshd:root所在的pid号。这时，你再netstat -antp，会发现44444已经出来了，在A主机上，ps可以看到autossh进程号没有改变，但是ssh进程改变了，是因为B主机端主动杀掉了连接，所以ssh又一次重连。 </p>
+<p>如果想要A主机重启之后，也可以保持自动ssh反向连接，那么需要追加到相应脚本下实现开机自启动。</p>
+<h2 id="参考文献">参考文献</h2><p><a href="http://www.jb51.net/hack/58514.html" target="_blank" rel="external">http://www.jb51.net/hack/58514.html</a></p>
+<p><a href="http://blog.chinaunix.net/uid-20109107-id-2954579.html" target="_blank" rel="external">http://blog.chinaunix.net/uid-20109107-id-2954579.html</a></p>
+<p><a href="http://www.cnblogs.com/eshizhan/archive/2012/07/16/2592902.html" target="_blank" rel="external">http://www.cnblogs.com/eshizhan/archive/2012/07/16/2592902.html</a></p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2015/01/11/hadoop/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          基于Hadoop平台的局域网和广域网环境下的处理性能比较
+        
+      </div>
+    </a>
+  
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到：</span>
+		<a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+		<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="sshreverse" data-title="ssh 反向代理" data-url="http://nfeat.com/2014/10/16/sshreverse/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"true"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2015 宋志诚
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js" type="text/javascript"></script>
+<script src="/js/main.js" type="text/javascript"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>

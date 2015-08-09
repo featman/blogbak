@@ -3,6 +3,30 @@
 
     
   <url>
+    <loc>http://nfeat.com/2014/10/16/sshreverse/</loc>
+    <lastmod>2015-08-09T06:44:17.000Z</lastmod>
+    <data>
+        <display>
+        <title>ssh 反向代理</title>
+        <pubTime>2014-10-16T18:01:01.000Z</pubTime>
+        
+        <tag>busybox </tag>
+         
+        <tag>文件系统 </tag>
+         
+        <tag>移植 </tag>
+         
+         
+           
+             
+              <breadCrumb title="嵌入式linux" url="http://nfeat.com/categories/%E5%B5%8C%E5%85%A5%E5%BC%8Flinux/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://nfeat.com/2015/07/15/Liangxindns/</loc>
     <lastmod>2015-08-09T06:33:26.000Z</lastmod>
     <data>
