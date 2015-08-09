@@ -3,6 +3,32 @@
 
     
   <url>
+    <loc>http://nfeat.com/2014/10/16/openwrt/</loc>
+    <lastmod>2015-08-09T07:28:37.000Z</lastmod>
+    <data>
+        <display>
+        <title>OpenWRT编译之360路由器C301</title>
+        <pubTime>2014-10-16T18:01:01.000Z</pubTime>
+        
+        <tag>openwrt </tag>
+         
+        <tag>uboot定制 </tag>
+         
+        <tag>内核编译 </tag>
+         
+        <tag>打印机共享 </tag>
+         
+         
+           
+             
+              <breadCrumb title="嵌入式linux" url="http://nfeat.com/categories/%E5%B5%8C%E5%85%A5%E5%BC%8Flinux/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://nfeat.com/2015/07/15/Liangxindns/</loc>
     <lastmod>2015-08-09T06:53:21.000Z</lastmod>
     <data>
