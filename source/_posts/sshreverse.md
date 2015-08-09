@@ -42,7 +42,6 @@ b.在B主机上键入：cat ida_rsa.pub >> ~/.ssh/authorized_keys
 c.接着我们在A主机下安装一个autossh （ubuntu可采用apt-get install autossh安装，嵌入式设备可能需要移植）
 
 ~~d.在A主机上键入 autossh -M 5678 -NR 2222:localhost:22 root@100.100.100.100 -p 22  & 
-
 此时，A主机与B主机的SSH通道一直会保持在线了。~~
 
 

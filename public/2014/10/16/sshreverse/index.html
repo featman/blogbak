@@ -12,7 +12,7 @@
 <meta property="og:site_name" content="宋志诚的博客">
 <meta property="og:description" content="为了解决无法突破对远端设备所在内网访问的限制，ssh提供了一套反向代理机制来解决问题。">
 <meta property="og:image" content="http://img-storage.qiniudn.com/15-8-9/87726795.jpg">
-<meta property="og:updated_time" content="2015-08-09T06:46:35.000Z">
+<meta property="og:updated_time" content="2015-08-09T06:48:06.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ssh 反向代理">
 <meta name="twitter:description" content="为了解决无法突破对远端设备所在内网访问的限制，ssh提供了一套反向代理机制来解决问题。">
@@ -229,8 +229,7 @@
 <p>b.在B主机上键入：cat ida_rsa.pub &gt;&gt; ~/.ssh/authorized_keys</p>
 <p>此时，A主机已经免输密码。</p>
 <p>c.接着我们在A主机下安装一个autossh （ubuntu可采用apt-get install autossh安装，嵌入式设备可能需要移植）</p>
-<p>~~d.在A主机上键入 autossh -M 5678 -NR 2222:localhost:22 root@100.100.100.100 -p 22  &amp; </p>
-<p>此时，A主机与B主机的SSH通道一直会保持在线了。~~</p>
+<p><del>d.在A主机上键入 autossh -M 5678 -NR 2222:localhost:22 root@100.100.100.100 -p 22  &amp;<br>此时，A主机与B主机的SSH通道一直会保持在线了。</del></p>
 <h5 id="2-4_经测试发现，这条命令并不适用于3G网卡传输的方式，因为3G的无线传输方式本身就有传输可能会断掉的缺点。如果A主机端为一个3G网络的环境，那么需要在A主机上使用以下方法解决。">2.4 经测试发现，这条命令并不适用于3G网卡传输的方式，因为3G的无线传输方式本身就有传输可能会断掉的缺点。如果A主机端为一个3G网络的环境，那么需要在A主机上使用以下方法解决。</h5><p>d1.    autossh -M 0 -q -N -o ServerAliveInterval=10 -o ServerAliveCountMax=3 -R 44444:localhost:22 root@100.100.100.100这条命令的作用比上一条多了一个心跳信息，就是说A主机的ssh每隔10秒会主动给B主机的sshd发送心跳信息，这时候B主机sshd会给予A主机ssh一个响应信息，这是一个过程，如果B主机没有给予ssh一个响应信息，那么ServerAliveCountMax值+1，当ServerAliveCountMax等于3时，ssh客户端认为已经断掉，这时候ssh会自己关闭相关端口和进程，然后由autossh自动启动ssh客户端，再一次连接，也就是说完成一次检测网络状态，需要30秒，如果30秒，由于网络阻塞或者其他问题，那么ssh会主动关闭。</p>
 <p>d2.   另外，由于是3G网络环境（测试发现，如果3G网络异常断开，那么autossh进程会死掉），所以需要加入一小段监控的shell脚本，定期检测autossh是否存在，如果不存在则重启，如果存在阻塞几秒继续监控。</p>
 <p>d3.   上边配置了A主机，还需要配置B主机（服务器），首先要说的是，当用d1的那条命令后，会使得服务器端ssh连接异常，也就是说putty可能登陆不上去，重启也无效（这个可能是特例，总之咱不知道具体原因），查了一些资料，说是要更改ssh客户端的配置即可（这里不明白），具体做法是/etc/ssh/ssh_config这个文件中，加入ServerAliveInterval 60即可，据说是防被踢，但是不理解。。。。。</p>
