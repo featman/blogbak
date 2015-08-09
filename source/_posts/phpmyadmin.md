@@ -1,5 +1,5 @@
 title: phpmyadmin导入excel表格->mysql 
-date: 2015-8-8 20:23:23
+date: 2015-7-25 20:23:23
 categories: 数据库技术 
 tags: [excel,随笔,没有别的了]
 description: 介绍phpmyadmin导入excel的方法

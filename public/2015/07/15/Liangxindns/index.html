@@ -3,30 +3,18 @@
 <head>
   <meta charset="utf-8">
   
-  <title>phpmyadmin导入excel表格-&gt;mysql | 宋志诚的博客</title>
+  <title>良心DNS | 宋志诚的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="介绍phpmyadmin导入excel的方法">
+  <meta name="description" content="提供可替换的DNS">
 <meta property="og:type" content="article">
-<meta property="og:title" content="phpmyadmin导入excel表格->mysql">
-<meta property="og:url" content="http://nfeat.com/2015/08/08/phpmyadmin/index.html">
+<meta property="og:title" content="良心DNS">
+<meta property="og:url" content="http://nfeat.com/2015/07/15/Liangxindns/index.html">
 <meta property="og:site_name" content="宋志诚的博客">
-<meta property="og:description" content="介绍phpmyadmin导入excel的方法">
-<meta property="og:image" content="http://img-storage.qiniudn.com/15-8-8/98049354.jpg">
-<meta property="og:image" content="http://img-storage.qiniudn.com/15-8-8/10194909.jpg">
-<meta property="og:image" content="http://img-storage.qiniudn.com/15-8-8/61706716.jpg">
-<meta property="og:image" content="http://img-storage.qiniudn.com/15-8-8/5406617.jpg">
-<meta property="og:image" content="http://img-storage.qiniudn.com/15-8-8/20837690.jpg">
-<meta property="og:image" content="http://img-storage.qiniudn.com/15-8-8/87494927.jpg">
-<meta property="og:image" content="http://img-storage.qiniudn.com/15-8-8/5380601.jpg">
-<meta property="og:image" content="http://img-storage.qiniudn.com/15-8-8/54058994.jpg">
-<meta property="og:image" content="http://img-storage.qiniudn.com/15-8-8/91318425.jpg">
-<meta property="og:image" content="http://img-storage.qiniudn.com/15-8-8/44047196.jpg">
-<meta property="og:image" content="http://img-storage.qiniudn.com/15-8-8/60755242.jpg">
-<meta property="og:image" content="http://img-storage.qiniudn.com/15-8-8/28900338.jpg">
-<meta property="og:updated_time" content="2015-08-09T04:39:30.000Z">
+<meta property="og:description" content="提供可替换的DNS">
+<meta property="og:updated_time" content="2015-08-09T05:26:48.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="phpmyadmin导入excel表格->mysql">
-<meta name="twitter:description" content="介绍phpmyadmin导入excel的方法">
+<meta name="twitter:title" content="良心DNS">
+<meta name="twitter:description" content="提供可替换的DNS">
   
     <link rel="alternative" href="/atom.xml" title="宋志诚的博客" type="application/atom+xml">
   
@@ -186,11 +174,11 @@
 		</header>				
 	</div>
 </nav>
-      <div class="body-wrap"><article id="post-phpmyadmin" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-Liangxindns" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2015/08/08/phpmyadmin/" class="article-date">
-  	<time datetime="2015-08-09T00:23:23.000Z" itemprop="datePublished">2015-08-08</time>
+      <a href="/2015/07/15/Liangxindns/" class="article-date">
+  	<time datetime="2015-07-16T00:10:29.000Z" itemprop="datePublished">2015-07-15</time>
 </a>
     </div>
   
@@ -203,7 +191,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      phpmyadmin导入excel表格-&gt;mysql
+      良心DNS
     </h1>
   
 
@@ -212,12 +200,12 @@
       <div class="article-info article-info-post">
         
 	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/excel/">excel</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/没有别的了/">没有别的了</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/随笔/">随笔</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DNS，第三方DNS/">DNS，第三方DNS</a></li></ul>
 	</div>
 
         
 	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/数据库技术/">数据库技术</a>
+	<a class="article-category-link" href="/categories/网络技术/">网络技术</a>
 	</div>
 
 
@@ -227,55 +215,13 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="写在开头">写在开头</h3><p>帮助文档以phpMyadmin数据库建表开始，然后再到后边的用csv导入到数据库表中。写这些的目的是 因为插入的东西是中文，所以需要注意编码问题。<br><a id="more"></a></p>
-<h3 id="用到的工具">用到的工具</h3><p>excel，phpmyadmin，emeditor</p>
-<h3 id="过程">过程</h3><ul>
-<li>phpMyadmin建表<br>登陆lorne.pw/database中，在新建数据库中写上数据库名字 divider，整理选择utf8_general_ci，然后点击创建。</li>
-</ul>
-<p><img src="http://img-storage.qiniudn.com/15-8-8/98049354.jpg" alt="image description"></p>
-<ul>
-<li>选择进入数据库divider，然后选择新建一张表，写上名字dividerInfo，并写上字段5个，然后点击执行。</li>
-</ul>
-<p><img src="http://img-storage.qiniudn.com/15-8-8/10194909.jpg" alt="image description"></p>
-<ul>
-<li>在这张新建数据表的窗口下，点击添加各字段详细信息，如下，值得注意的是中文用varchar就好，长度写上大概的就可以：</li>
-</ul>
-<p><img src="http://img-storage.qiniudn.com/15-8-8/61706716.jpg" alt="image description"></p>
-<ul>
-<li>在同一个窗口下，注意选择整理：然后选择utf8_general_ci，然后点击保存表就建好了。</li>
-</ul>
-<p><img src="http://img-storage.qiniudn.com/15-8-8/5406617.jpg" alt="image description"></p>
-<ul>
-<li>新建excel表格，编辑学生信息，如下所示：<br>（注意列的顺序与表要严格一致，第一行不需要些字段名称）</li>
-</ul>
-<p><img src="http://img-storage.qiniudn.com/15-8-8/20837690.jpg" alt="image description"></p>
-<ul>
-<li>编辑完点击文件-另存为-计算机，然后弹出对话框，点击对话框的工具-web选项-编码。</li>
-</ul>
-<p><img src="http://img-storage.qiniudn.com/15-8-8/87494927.jpg" alt="image description"></p>
-<ul>
-<li>选择将此文档另存为uniconde(UTF-8),然后点击确定，此时进入第10步。</li>
-</ul>
-<p><img src="http://img-storage.qiniudn.com/15-8-8/5380601.jpg" alt="image description"></p>
-<ul>
-<li>在下图中选择保存为csv格式。</li>
-</ul>
-<p><img src="http://img-storage.qiniudn.com/15-8-8/54058994.jpg" alt="image description"></p>
-<ul>
-<li>此时桌面出现csv格式后，这时就可以进入12步，把csv上传到phpMyadmin中。<br>在phpMyadmin主界面，选择数据库divider，然后选择表dividerInfo，最后选择导入。</li>
-</ul>
-<p><img src="http://img-storage.qiniudn.com/15-8-8/91318425.jpg" alt="image description"></p>
-<ul>
-<li><p>选择从计算机中上传student.csv文件。其他不用管，配置如图所示。</p>
-<p><img src="http://img-storage.qiniudn.com/15-8-8/44047196.jpg" alt="image description"></p>
-</li>
-<li><p>此时还需要一步，就是在桌面生成的student.csv文件，右键用windows自带的记事本打</p>
-<p><img src="http://img-storage.qiniudn.com/15-8-8/60755242.jpg" alt="image description"></p>
-</li>
-</ul>
-<p><strong><em> </em>附</strong><br> <img src="http://img-storage.qiniudn.com/15-8-8/28900338.jpg" alt="image description"></p>
-<p>** 其实有一种更为简单的方法，就是直接在桌面上右键新建一个txt，然后用自带的记事本编辑，<br>比如编辑：<br>11,胡威,99,三中,高一5班<br>12,胡方法,10,二中,高一10班</p>
-<p>这个方法需要注意的事项是每个字段与每个字段之间的逗号必须要用英文的逗号。<br>编辑结束后，点击文件另存为，选择编码为utf-8，保存为csv格式。这种方法不适合批量输入，因为不方便输入逗号<br>**</p>
+        <h2 id="NDS替换">NDS替换</h2><hr>
+<h3 id="国内DNS">国内DNS</h3><p>1.aliDNS：223.5.5.5；223.6.6.6<strong>（推荐）</strong><br><a id="more"></a></p>
+<p>2.114DNS：114.114.114.114；114.114.115.115</p>
+<p>3.oneDNS：112.124.47.27</p>
+<h3 id="国外DNS">国外DNS</h3><p>1.V2EX DNS：199.91.73.222；178.79.131.110</p>
+<p>2.Google DNS：8.8.8.8；8.8.4.4</p>
+<p>3.OpenDNS：208.67.222.222；208.67.220.220</p>
 
       
     </div>
@@ -285,11 +231,15 @@
     
 <nav id="article-nav">
   
-  
-    <a href="/2015/08/08/Liangxindns/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">良心DNS</div>
-      <strong class="article-nav-caption">></strong>
+    <a href="/2015/07/25/phpmyadmin/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          phpmyadmin导入excel表格-&gt;mysql
+        
+      </div>
     </a>
+  
   
 </nav>
 
@@ -316,7 +266,7 @@
 
 <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="phpmyadmin" data-title="phpmyadmin导入excel表格-&gt;mysql" data-url="http://nfeat.com/2015/08/08/phpmyadmin/"></div>
+	<div class="ds-thread" data-thread-key="Liangxindns" data-title="良心DNS" data-url="http://nfeat.com/2015/07/15/Liangxindns/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">
