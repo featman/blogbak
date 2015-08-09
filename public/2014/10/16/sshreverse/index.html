@@ -12,7 +12,7 @@
 <meta property="og:site_name" content="宋志诚的博客">
 <meta property="og:description" content="为了解决无法突破对远端设备所在内网访问的限制，ssh提供了一套反向代理机制来解决问题。">
 <meta property="og:image" content="http://img-storage.qiniudn.com/15-8-9/87726795.jpg">
-<meta property="og:updated_time" content="2015-08-09T06:50:23.000Z">
+<meta property="og:updated_time" content="2015-08-09T06:51:08.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ssh 反向代理">
 <meta name="twitter:description" content="为了解决无法突破对远端设备所在内网访问的限制，ssh提供了一套反向代理机制来解决问题。">
@@ -237,8 +237,10 @@
 <p>d2.   另外，由于是3G网络环境（测试发现，如果3G网络异常断开，那么autossh进程会死掉），所以需要加入一小段监控的shell脚本，定期检测autossh是否存在，如果不存在则重启，如果存在阻塞几秒继续监控。</p>
 <p>d3.   上边配置了A主机，还需要配置B主机（服务器），首先要说的是，当用d1的那条命令后，会使得服务器端ssh连接异常，也就是说putty可能登陆不上去，重启也无效（这个可能是特例，总之咱不知道具体原因），查了一些资料，说是要更改ssh客户端的配置即可（这里不明白），具体做法是/etc/ssh/ssh_config这个文件中，加入ServerAliveInterval 60即可，据说是防被踢，但是不理解。。。。。</p>
 <p>d4. 另外我们使用netstat -antp命令可以看到linux当前网络的端口占用情况。测试的时候我发现A主机的3G网络异常断开之后，A主机的autossh自然死掉了。但是在B主机netstat -antp时，还是可以看到系统在监听44444端口，后边的进程是sshd 服务端程序启动的，如果我们在B主机上不做任何设置，那么会导致B主机44444端口一直处于无效状态，即便A主机设置重新启动autossh，也无法再B主机通过44444与A主机建立连接。解决方法是打开/etc/ssh/sshd_config配置文件，在最后边添加或者更改ClientAliveIntercal 10 还有 ClientAliveCountMax 3即可，意思就是说sshd服务端程序主动去发送小心给客户端（A主机），A主机如果与B保持连接，那么肯定会给予B回复，否则不回，这样就是使得10秒之后，count值+1，直到3，sshd程序就会主动把占用端口的sshd子进程杀掉，让出端口来。这时候就等待A主机建立连接就可以了！</p>
+<blockquote>
 <p>副：测试发现，也有小概率出现，在A主机端发现autossh进程在，ssh进程也在，但是在B主机端用netstat -antp发现没有在监听44444端口。这时，需要在B主机端主动杀掉netstat -antp结果中那个本地22的端口后边对应的sshd:root所在的pid号。这时，你再netstat -antp，会发现44444已经出来了，在A主机上，ps可以看到autossh进程号没有改变，但是ssh进程改变了，是因为B主机端主动杀掉了连接，所以ssh又一次重连。 </p>
 <p>如果想要A主机重启之后，也可以保持自动ssh反向连接，那么需要追加到相应脚本下实现开机自启动。</p>
+</blockquote>
 <h2 id="参考文献">参考文献</h2><p><a href="http://www.jb51.net/hack/58514.html" target="_blank" rel="external">http://www.jb51.net/hack/58514.html</a></p>
 <p><a href="http://blog.chinaunix.net/uid-20109107-id-2954579.html" target="_blank" rel="external">http://blog.chinaunix.net/uid-20109107-id-2954579.html</a></p>
 <p><a href="http://www.cnblogs.com/eshizhan/archive/2012/07/16/2592902.html" target="_blank" rel="external">http://www.cnblogs.com/eshizhan/archive/2012/07/16/2592902.html</a></p>
