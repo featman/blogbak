@@ -1,7 +1,7 @@
 title: ssh 反向代理    
 date: 2014-10-16 14:01:01
 categories: 网络技术 
-tags: [文件系统,busybox,移植] 
+tags: [ssh反向代理,ssh,穿越内网] 
 
 ---
 
