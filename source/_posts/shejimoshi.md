@@ -85,7 +85,7 @@ int main(int argc , char *argv [])
 > 简单工厂模式，它的主要特点是需要在工厂类中做判断，从而创造相应的产品。当增加新的产品时，就需要修改工厂类。  
 
 2.1 UML图
-![image description](http://7xkz95.com1.z0.glb.clouddn.com/15-8-10/58525325.jpg)
+![image description](http://7xkz95.com1.z0.glb.clouddn.com/15-8-10/4895436.jpg)
 2.2 实现
 - 每次需要新的工厂，比如说中国pizaa，在加上一个派生类，同时修改下simplepizzafacotry的判断条件。
 ```
