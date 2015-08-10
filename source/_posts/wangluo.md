@@ -106,5 +106,5 @@ tags: [知识点整理,计算机网络]
 ![image description](http://7xkz95.com1.z0.glb.clouddn.com/15-8-10/41832642.jpg)
 ### 13.三次握手
 ![image description](http://7xkz95.com1.z0.glb.clouddn.com/15-8-10/40534034.jpg)
-### NAT透传
+### NAT透传！
 ![image description](http://7xkz95.com1.z0.glb.clouddn.com/15-8-10/2700751.jpg)
