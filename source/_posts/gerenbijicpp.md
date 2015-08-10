@@ -208,6 +208,11 @@ a aa;
 printf("%d,%d,%d,%d\n",aa.a,aa.b,aa.c,aa.d);
 }
 ```
+详细请看：[大端模式和小端模式](http://blog.csdn.net/hackbuteer1/article/details/7722667)  
+在所有的介绍字节序的文章中都会提到字 节序分为两类：Big-Endian和Little-Endian，引用标准的Big-Endian和Little-Endian的定义如下：
+- a) Little-Endian就是低位字节排放在内存的低地址端，高位字节排放在内存的高地址端。
+- b) Big-Endian就是高位字节排放在内存的低地址端，低位字节排放在内存的高地址端。
+- c) 网络字节序：TCP/IP各层协议将字节序定义为Big-Endian，因此TCP/IP协议中使用的字节序通常称之为网络字节序。
 #### 16.[类和结构体的区别](http://www.cnblogs.com/vace/archive/2011/04/14/2015754.html)
 
 #### 17.类的对象 和 类的指针
