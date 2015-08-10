@@ -112,6 +112,40 @@ void heapSort(int arr[], int n){
 ```
 #### 5.二分查找(复杂度log2n，最大次数为log2n+1)
 在给定的一个有序递增序列中，拿指定值和中间值进行比较，如果相等，那么返回中间值，如果不等，则需要判断指定值和中间值的大小情况，如果小于中间值，那么要找的值在左边，所以递归调用本身，但是参数的上界变为mid-1.大于中间值，同理。需要注意的地方是循环的条件是Low<=high，因为相等的情况还是有一个节点的。
+
+```
+//查找的出是序列必须是连续存储，比如数组，链表不适合。另外被查找的序列应该有序，如递增
+
+//递归查找
+int binSearch(int arr[],int mete,int start,int end){
+	int n = (start+end)/2;//key
+	if(start > end) return -1;//递归要有退出
+	if(arr == NULL) return -1;
+	if(arr[n] == mete) return n;
+	if(arr[n] < mete)
+		return binSearch(arr,mete,n+1,end);
+	else
+		return binSearch(arr,mete,0,n-1);
+	return -1;
+}
+
+//循环查找
+int binSearchOut(int arr[],int mete,int start,int end){
+	if(arr == NULL) return -1;
+
+	while(start <= end){
+		int n = (start+end)/2;
+		if(mete == arr[n])
+			return n;
+		else if(mete > arr[n])
+			start = n+1;
+		else
+			end = n-1;
+	}
+	return -1;
+}
+```
+
 #### 6.二叉树的遍历
 
 ```
