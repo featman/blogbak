@@ -35,88 +35,49 @@ tags: [知识点整理,数据结构]
 
 
 ```
-/*
- ============================================================================
- Name        : MyTest.c
- Author      : lorne
- Version     :
- Copyright   : Your copyright notice
- Description : Hello World in C, Ansi-style
- ============================================================================
- */
-
-#include <stdio.h>
-#include <stdlib.h>
-
-typedef int ElemType;
-void HeapAdjust(ElemType H[], int start, int end)
-{
-
-    ElemType temp = H[start];
-
-    int i;
-    for(i = 2*start + 1; i<=end; i*=2)
-    {
-        //因为假设根结点的序号为0而不是1，所以i结点左孩子和右孩子分别为2i+1和2i+2
-        if(i<end && H[i] < H[i+1])//左右孩子的比较
-        {
-            ++i;//i为较大的记录的下标
-        }
-        if(temp > H[i])//左右孩子中获胜者与父亲的比较
-//相当难理解，在第二次循环的时候，始终不理解为何还用只付过一次值的temp，后来想到了，是因为二叉树上边的一直都比下边的大，所以用一个已经
-//！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！
-//因为这个是交换之后的那个父节点的值了！！！！！！！！！！！！！无论for多少次都是这样的，太他妈的巧妙了。。。。。
-        {
-            break;
-        }
-
-        //将孩子结点上位，则以孩子结点的位置进行下一轮的筛选
-//        H[start]= H[i];
-        int tmp = H[i];;;;
-        H[i] = H[start];
-        H[start] = tmp;
-        start = i;
-
-    }
-
-    H[start]= temp; //插入最开始不和谐的元素
-}
+#include "General.h"
 
 
-void HeapSort(ElemType A[], int n)
-{
-    //先建立大顶堆
- int i;
- //肯定是一个从下往上去建立了的过程
-    for(i=n/2; i>=0; --i)
-    {
-        HeapAdjust(A,i,n-1);
-    }
-    //进行排序
-    for(i=n-1; i>0; --i)
-    {
-        //最后一个元素和第一元素进行交换
-        ElemType temp=A[i];
-        A[i] = A[0];
-        A[0] = temp;
-
-        //然后将剩下的无序元素继续调整为大顶堆
-        HeapAdjust(A,0,i-1);
-    }
-
+void adjustHeap(int arr[],int start,int end){
+	//int tmp = arr[start];
+	int i;
+	//每次调整3个，如果传入进来的节点start,i,i+1，已经是一个有序的序列，那么循环执行一次就会结束。
+	//如果传入进来的三个节点顺序不对，那么先调整这三个节点，然后再进入下一次循环以i或者i+1作为新的父节点进行调整，有可能调整到叶子节点，直到满足break。
+	//NOTICE:for中一定要i<=end，而下边第一条执行if一定要有i<end，
+	//考虑叶子节点只有一个左孩子的情况，此时也需要判断父亲和左孩子的大小，因为左孩子没有兄弟，所以不能跟i+1比较，会出现不可预料的后果。
+	for(i=2*start+1;i<=end;i*=2){
+		if(arr[i] < arr[i+1] && i<end) i++;//选择大的子节点//这里的大于小于就确定了是大根堆还是小根堆
+		if(arr[i] < arr[start]) break;//选择子节点和父节点中较大的一个
+		int temp = arr[i];
+		arr[i] = arr[start];
+		arr[start] = temp;
+		start = i;//为下一次节点调整做准备，下次循环中start就是“父节点”。
+	}
 }
 
 
 
-int main(){
- ElemType arr[10] = {1,2,66,77,521,4,1,55,11,6};
- HeapSort(arr,10);
- int i;
- for(i=0;i<10;i++)
-  printf("%d   ",arr[i]);
- return 0;
-}
+//这里的n传入的是个数，不是数组下标最大值
+void heapSort(int arr[], int n){
+	int i ;
+	//建立一个初始堆，这个堆是一个原始的序列
+	//此循环从n/2开始，是要从中间部分向上逐渐调整。
+	//循环最终得到一个完整的大根堆/小根堆
+	for(i=n/2;i>=0;i--){//这里i有=0，是因为根节点也要和左右调整
+		adjustHeap(arr,i,n-1);
+	}
 
+
+	//每次取出根节点，放置序列的尾部，空间复杂度o1
+	//这样的话，在大根堆输出的序列就是一个递增的序列
+	for(i=n-1;i>0;i--){//这里i没有=0，是因为下边一直在和arr[0]换，arr[0]不需要和本身换。
+		int tmp = arr[0];
+		arr[0] = arr[i];
+		arr[i] = tmp;
+		//交换完之后还要调整剩下的堆，这个堆从上往下调整，直到再次选出其余节点中最值
+		adjustHeap(arr,0,i-1);//i-1是因为每次交换的都是最后一个和第一个，所以需要从0调整到倒数第二个。
+	}
+}
 ```
 #### 5.二分查找(复杂度log2n，最大次数为log2n+1)
 在给定的一个有序递增序列中，拿指定值和中间值进行比较，如果相等，那么返回中间值，如果不等，则需要判断指定值和中间值的大小情况，如果小于中间值，那么要找的值在左边，所以递归调用本身，但是参数的上界变为mid-1.大于中间值，同理。需要注意的地方是循环的条件是Low<=high，因为相等的情况还是有一个节点的。
