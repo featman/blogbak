@@ -29,6 +29,37 @@ tags: [知识点整理,数据结构]
 - b.第一层循环while(l<r)，这时候不能在下边的设置为if(arr[r] >= arr[index]) 因为如果是if判断，只是简单判断第一次是否成立，并不能保证找到了比基准小的值，所以需要把条件变为while(arr[r] >= arr[index]) 
 - c.由b改成while()之后，需要再条件中添加一个条件l<r，因为如果不添加那么就会一直减下去。
 - d.在递归调用的时候，必须要有一个判断退出的，不然会无线循环。if(l>r) return;
+
+```
+#include "General.h"
+/*
+ *  快速排序所谓的最好情况和最坏情况不一样，如何才是最好，如何才是最坏？
+ *	最好情况是，选取到那个基准正好为比较中间的值，比如一个序列，10，23，45，8，9，这样就比较好，彼此到次数少，所以时间复杂度会变小，为nlog2n，
+ *	最坏情况是，选取到这个序列有一定到顺序，这样再排序到时候，就会使得比较次数增加（每一轮比上次少1个），时间复杂度o(n2)
+ */
+void quickSort(int arr[], int left, int right){
+
+	if(left > right) return;//递归必须要有退出的语句！
+	int index = left;
+	int l = left, r = right;
+	while(l < r){
+		while(arr[r]>arr[index] && l<r) r--;
+		while(arr[l]<arr[index] && l<r) l++;
+		int tmp = arr[r];
+		arr[r] = arr[l];
+		arr[l] = tmp;
+	}
+	int temp = arr[l];
+	arr[l] = arr[index];
+	arr[index] = temp;
+
+
+	quickSort(arr,left,l-1);
+	quickSort(arr,l+1,right);
+}
+
+```
+
 #### 4.[堆排序](http://www.cnblogs.com/mengdd/archive/2012/11/30/2796845.html)：O（nlogn），不稳定
 分为两个过程，一个是建立堆的过程，一个是拿出祖先节点后，重新调整堆的过程。d
 建立堆之后，祖先节点就是一个最值了，把这个最值拷贝到另外一个数组的第一个位置，然后在原来的数组上（即堆上），删除根节点，然后现在的数组就需要重新调整为一个新的堆，在把这个堆的第一个元素取出，放到另外一个数组的第二个位置。以此类推。
