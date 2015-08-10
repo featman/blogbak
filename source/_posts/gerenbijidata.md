@@ -242,3 +242,83 @@ http://www.csdn123.com/html/itweb/20130813/57700_57702_57699.htm
 #### 16.为什么需要AVL或者R.B Tree
 AVL和红黑树都为二叉排序树的一种，想象如果只有二叉排序树，极端情况下，二叉排序树只有1，2,3,4,5，这五个数字组成了一个单方向的二叉树，仔细看可以看出，其实成为了一个链表，链表的查找效率低下，需要一个高效的查找数据结构，AVL和红黑树可以实现。
 #### 17.二叉堆分为大根堆和小根堆，大根堆中父节点的值永远大于子节点的值。
+#### 18.string实现
+
+
+```
+string实现：
+
+//============================================================================
+// Name        : MyString.cpp
+// Author      : lorne
+// Version     :
+// Copyright   : Your copyright notice
+// Description : Hello World in C++, Ansi-style
+//============================================================================
+
+
+#include "MyString.h"
+
+
+MyString::MyString(){
+ string = new char[1];
+ *string = '\0';
+}
+
+MyString::MyString(const char* str){
+ if(str == NULL){
+  string = new char[1];
+  *string = '\0';
+ }else{
+  int len = strlen(str);
+  string = new char[len+1];
+  strcpy(string,str);
+ }
+}
+
+MyString::MyString(const MyString& ms){
+ int len = strlen(ms.string);
+ this->string = new char[len+1];
+ strcpy(this->string,ms.string);
+}
+
+MyString::~MyString(){
+ delete[] this->string;
+}
+
+MyString& MyString::operator=(const char* str){
+ int len = strlen(str);
+ this->string = new char[len+1];
+ strcpy(this->string,str);
+ return *this;
+}
+
+MyString MyString::operator+(const MyString& ms){
+ int len = strlen(ms.string);
+ MyString str;
+ str.string = new char[len+strlen(this->string)+1];
+ strcpy(str.string,this->string);
+ strcat(str.string,ms.string);
+ return str;
+}
+
+char MyString::operator[](unsigned int index){
+ char chr;
+ chr = this->string[index];
+ return chr;
+}
+
+bool MyString::operator==(const MyString &ms){
+ int res = strcmp(ms.string,this->string);
+ if (!res){
+  return true;
+ }else{
+  return false;
+ }
+}
+
+ostream& operator<<(ostream& out,const MyString& ms){
+ out<<ms.string;
+ return out;
+}
+```
