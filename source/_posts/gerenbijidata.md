@@ -246,15 +246,6 @@ AVL和红黑树都为二叉排序树的一种，想象如果只有二叉排序�
 
 
 ```
-string实现：
-
-//============================================================================
-// Name        : MyString.cpp
-// Author      : lorne
-// Version     :
-// Copyright   : Your copyright notice
-// Description : Hello World in C++, Ansi-style
-//============================================================================
 
 
 #include "MyString.h"
@@ -321,4 +312,71 @@ ostream& operator<<(ostream& out,const MyString& ms){
  out<<ms.string;
  return out;
 }
+```
+#### 19.atoi 实现
+
+```
+int my_atoi(const char* str){ 
+int res = 0; 
+int flag = 1; 
+if(!str) return 0;
+
+while(*str == ' ') str++;
+
+if(*str == '-') { 
+flag = -1; 
+str++; 
+}
+
+while(*str >= '0' && *str <= '9'){ 
+res = *str-'0'+res*10; 
+str++; 
+}
+
+return res*flag; 
+} 
+```
+
+
+
+#### 20.itoa 实现
+
+```
+char* reverse(char* str){ 
+	char tmp; 
+	char* p = str; 
+	char* q = str; 
+	while(*p) p++; 
+	p--; 
+
+
+	while(p>q){ 
+		tmp = *p; 
+		*p = *q; 
+		*q = tmp; 
+		p--; 
+		q++; 
+	} 
+	return str; 
+} 
+
+
+
+
+char* my_itoa(int val){ 
+	char flag = 0; 
+	int i = 0; 
+	static char str[100] = "\0"; 
+	if(!val) return 0; 
+	if(val < 0) { 
+		flag = '-'; 
+		val = val*(-1); 
+	} 
+	while(val){ 
+		str[i++] = val%10+'0'; 
+		val /= 10; 
+	} 
+	str[i] = flag; 
+	return reverse(str); 
+} 
 ```
