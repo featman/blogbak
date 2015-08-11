@@ -47,6 +47,32 @@
 
     
   <url>
+    <loc>http://nfeat.com/2015/05/11/yibutongbu/</loc>
+    <lastmod>2015-08-10T14:42:05.000Z</lastmod>
+    <data>
+        <display>
+        <title>阻塞、非阻塞、同步、异步</title>
+        <pubTime>2015-05-11T16:51:44.000Z</pubTime>
+        
+        <tag>IO模型 </tag>
+         
+        <tag>同步 </tag>
+         
+        <tag>异步 </tag>
+         
+        <tag>操作系统 </tag>
+         
+         
+           
+             
+              <breadCrumb title="操作系统" url="http://nfeat.com/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://nfeat.com/2015/03/10/gerenbijicpp/</loc>
     <lastmod>2015-08-10T12:26:20.000Z</lastmod>
     <data>
