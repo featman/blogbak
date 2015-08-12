@@ -3,6 +3,26 @@
 
     
   <url>
+    <loc>http://nfeat.com/2015/07/15/Liangxindns/</loc>
+    <lastmod>2015-08-12T12:48:36.000Z</lastmod>
+    <data>
+        <display>
+        <title>良心DNS</title>
+        <pubTime>2015-07-16T00:10:29.000Z</pubTime>
+        
+        <tag>DNS，第三方DNS </tag>
+         
+         
+           
+             
+              <breadCrumb title="网络技术" url="http://nfeat.com/categories/%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://nfeat.com/2015/05/17/caozuoxitong/</loc>
     <lastmod>2015-08-11T04:41:32.000Z</lastmod>
     <data>
@@ -186,26 +206,6 @@
            
              
               <breadCrumb title="嵌入式linux" url="http://nfeat.com/categories/%E5%B5%8C%E5%85%A5%E5%BC%8Flinux/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://nfeat.com/2015/07/15/Liangxindns/</loc>
-    <lastmod>2015-08-09T06:53:21.000Z</lastmod>
-    <data>
-        <display>
-        <title>良心DNS</title>
-        <pubTime>2015-07-16T00:10:29.000Z</pubTime>
-        
-        <tag>DNS，第三方DNS </tag>
-         
-         
-           
-             
-              <breadCrumb title="网络技术" url="http://nfeat.com/categories/%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF/"/>
           
         </display>
     </data>
